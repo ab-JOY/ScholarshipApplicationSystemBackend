@@ -5,12 +5,11 @@ import com.SE102.ScholarshipApplicationSystem.exception.ScholarPendingNotFoundEx
 import com.SE102.ScholarshipApplicationSystem.model.ScholarPending;
 import com.SE102.ScholarshipApplicationSystem.repository.ScholarPendingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @CrossOrigin("http://localhost:3000")
 public class ScholarPendingController {
 
@@ -31,6 +30,16 @@ public class ScholarPendingController {
     ScholarPending getScholarPendingById(@PathVariable Long pendingId){
         return scholarPendingRepository.findById(pendingId)
                 .orElseThrow(()-> new ScholarPendingNotFoundException(pendingId));
+    }
+
+    @DeleteMapping("/pendingApplication/{pendingId}")
+    String deletePendingApplication(@PathVariable Long pendingId){
+        if(!scholarPendingRepository.existsById(pendingId)){
+            throw new ScholarPendingNotFoundException(pendingId);
+        }
+
+        scholarPendingRepository.deleteById(pendingId);
+        return "Member with id: " +pendingId+ "has been deleted successfully";
     }
 
 

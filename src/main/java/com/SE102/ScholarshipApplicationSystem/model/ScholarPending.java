@@ -12,11 +12,10 @@ public class ScholarPending {
     private String fullName_pending;
     private String age_pending;
     private String dateOfBirth_pending;
-    private String province_pending;
     private String municipality_pending;
     private String detailedAddress_pending;
     private String school_pending;
-    private String degree_pending;
+    private String gwa_pending;
     private String course_pending;
     private String yearLevel_pending;
     private String contactNumber_pending;
@@ -62,8 +61,8 @@ public class ScholarPending {
         return school_pending;
     }
 
-    public String getDegree_pending() {
-        return degree_pending;
+    public String getGwa_pending() {
+        return gwa_pending;
     }
 
     public String getCourse_pending() {
@@ -122,10 +121,6 @@ public class ScholarPending {
         return annualHouseholdIncome_pending;
     }
 
-    public String getProvince_pending() {
-        return province_pending;
-    }
-
     public String getUserName_pending() {
         return userName_pending;
     }
@@ -162,8 +157,8 @@ public class ScholarPending {
         this.school_pending = school_pending;
     }
 
-    public void setDegree_pending(String degree_pending) {
-        this.degree_pending = degree_pending;
+    public void setGwa_pending(String gwa_pending) {
+        this.gwa_pending = gwa_pending;
     }
 
     public void setCourse_pending(String course_pending) {
@@ -220,10 +215,6 @@ public class ScholarPending {
 
     public void setAnnualHouseholdIncome_pending(String annualHouseholdIncome_pending) {
         this.annualHouseholdIncome_pending = annualHouseholdIncome_pending;
-    }
-
-    public void setProvince_pending(String province_pending) {
-        this.province_pending = province_pending;
     }
 
     public void setUserName_pending(String userName_pending) {

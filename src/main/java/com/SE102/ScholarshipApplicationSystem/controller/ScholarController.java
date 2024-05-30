@@ -4,13 +4,16 @@ package com.SE102.ScholarshipApplicationSystem.controller;
 import com.SE102.ScholarshipApplicationSystem.exception.ScholarNotFoundException;
 import com.SE102.ScholarshipApplicationSystem.model.Scholar;
 import com.SE102.ScholarshipApplicationSystem.repository.ScholarRepository;
+import com.SE102.ScholarshipApplicationSystem.service.TransferDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @CrossOrigin("http://localhost:3000")
 public class ScholarController {
 
@@ -43,7 +46,7 @@ public class ScholarController {
                     scholar.setMunicipality(newScholar.getMunicipality());
                     scholar.setDetailedAddress(newScholar.getDetailedAddress());
                     scholar.setSchool(newScholar.getSchool());
-                    scholar.setDegree(newScholar.getDegree());
+                    scholar.setGWA(newScholar.getGWA());
                     scholar.setCourse(newScholar.getCourse());
                     scholar.setYearLevel(newScholar.getYearLevel());
                     scholar.setContactNumber(newScholar.getContactNumber());
@@ -71,6 +74,19 @@ public class ScholarController {
         else{
             scholarRepository.deleteById(scholarId);
             return "Member deleted successfully";
+        }
+    }
+
+    @Autowired
+    private TransferDataService transferDataService;
+    public ResponseEntity<?> transferPendingApplication(){
+        try{
+            transferDataService.transferData();
+            return ResponseEntity.ok("Success");
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error transferring data");
+
         }
     }
 }

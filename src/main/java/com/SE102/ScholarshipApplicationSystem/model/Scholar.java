@@ -14,11 +14,11 @@ public class Scholar {
     private String fullName;
     private String age;
     private String dateOfBirth;
-    private String province;
     private String municipality;
     private String detailedAddress;
     private String school;
-    private String degree;
+    private String GWA;
+
     private String course;
     private String yearLevel;
     private String contactNumber;
@@ -65,8 +65,8 @@ public class Scholar {
         return school;
     }
 
-    public String getDegree() {
-        return degree;
+    public String getGWA() {
+        return GWA;
     }
 
     public String getCourse() {
@@ -125,10 +125,6 @@ public class Scholar {
         return annualHouseholdIncome;
     }
 
-    public String getProvince() {
-        return province;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -165,8 +161,8 @@ public class Scholar {
         this.school = school;
     }
 
-    public void setDegree(String degree) {
-        this.degree = degree;
+    public void setGWA(String gwa) {
+        this.GWA = gwa;
     }
 
     public void setCourse(String course) {
@@ -225,9 +221,6 @@ public class Scholar {
         this.annualHouseholdIncome = annualHouseholdIncome;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
-    }
 
     public void setUserName(String userName) {
         this.userName = userName;
