@@ -3,7 +3,9 @@ package com.SE102.ScholarshipApplicationSystem.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.Data;
 
+@Data
 @Entity
 public class ScholarPending {
     @Id
@@ -30,8 +32,6 @@ public class ScholarPending {
     private String numberOfSiblingsStudying_pending;
     private String numberOfSiblingsWorking_pending;
     private String annualHouseholdIncome_pending;
-    private String userName_pending;
-    private String password_pending;
 
     public Long getPendingId() {
         return pendingId;
@@ -121,13 +121,6 @@ public class ScholarPending {
         return annualHouseholdIncome_pending;
     }
 
-    public String getUserName_pending() {
-        return userName_pending;
-    }
-
-    public String getPassword_pending() {
-        return password_pending;
-    }
 
     public void setPendingId(Long pendingId) {
         this.pendingId = pendingId;
@@ -215,13 +208,5 @@ public class ScholarPending {
 
     public void setAnnualHouseholdIncome_pending(String annualHouseholdIncome_pending) {
         this.annualHouseholdIncome_pending = annualHouseholdIncome_pending;
-    }
-
-    public void setUserName_pending(String userName_pending) {
-        this.userName_pending = userName_pending;
-    }
-
-    public void setPassword_pending(String password_pending) {
-        this.password_pending = password_pending;
     }
 }

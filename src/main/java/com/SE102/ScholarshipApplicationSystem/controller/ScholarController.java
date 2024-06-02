@@ -4,6 +4,7 @@ package com.SE102.ScholarshipApplicationSystem.controller;
 import com.SE102.ScholarshipApplicationSystem.exception.ScholarNotFoundException;
 import com.SE102.ScholarshipApplicationSystem.model.Scholar;
 import com.SE102.ScholarshipApplicationSystem.repository.ScholarRepository;
+import com.SE102.ScholarshipApplicationSystem.service.ScholarService;
 import com.SE102.ScholarshipApplicationSystem.service.TransferDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,12 +21,15 @@ public class ScholarController {
     @Autowired
     private ScholarRepository scholarRepository;
 
+    @Autowired
+    private ScholarService scholarService;
+
     @GetMapping("/scholar")
     List<Scholar> getAllScholars(){
         return scholarRepository.findAll();
     }
 
-    @GetMapping("/scholar/{id}")
+    @GetMapping("/scholar/{scholarId}")
     Scholar getScholarById(@PathVariable Long scholarId){
         return scholarRepository.findById(scholarId)
                 .orElseThrow(()-> new ScholarNotFoundException(scholarId));
@@ -36,37 +40,12 @@ public class ScholarController {
         return scholarRepository.save(newScholar);
     }
 
-    @PutMapping("/scholar/{id}")
-    Scholar updateScholar(@RequestBody Scholar newScholar, @PathVariable Long scholarId){
-        return scholarRepository.findById(scholarId)
-                .map(scholar -> {
-                    scholar.setFullName(newScholar.getFullName());
-                    scholar.setAge(newScholar.getAge());
-                    scholar.setDateOfBirth(newScholar.getDateOfBirth());
-                    scholar.setMunicipality(newScholar.getMunicipality());
-                    scholar.setDetailedAddress(newScholar.getDetailedAddress());
-                    scholar.setSchool(newScholar.getSchool());
-                    scholar.setGWA(newScholar.getGWA());
-                    scholar.setCourse(newScholar.getCourse());
-                    scholar.setYearLevel(newScholar.getYearLevel());
-                    scholar.setContactNumber(newScholar.getContactNumber());
-                    scholar.setEmailAddress(newScholar.getEmailAddress());
-                    scholar.setEmergencyContactPerson(newScholar.getEmergencyContactPerson());
-                    scholar.setRelationshipWithEmergencyContact(newScholar.getRelationshipWithEmergencyContact());
-                    scholar.setNameOfMother(newScholar.getNameOfMother());
-                    scholar.setOccupationOfMother(newScholar.getOccupationOfMother());
-                    scholar.setNameOfFather(newScholar.getNameOfFather());
-                    scholar.setOccupationOfFather(newScholar.getOccupationOfFather());
-                    scholar.setNumberOfSiblings(newScholar.getNumberOfSiblings());
-                    scholar.setNumberOfSiblingsStudying(newScholar.getNumberOfSiblingsStudying());
-                    scholar.setNumberOfSiblingsWorking(newScholar.getNumberOfSiblingsWorking());
-                    scholar.setAnnualHouseholdIncome(newScholar.getAnnualHouseholdIncome());
-
-                    return scholarRepository.save(scholar);
-                }).orElseThrow(()-> new ScholarNotFoundException(scholarId));
+    @PutMapping("/scholar/{scholarId}")
+    public Scholar updateScholar(@RequestBody Scholar newScholar, @PathVariable Long scholarId) {
+        return scholarService.updateScholar(scholarId, newScholar);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/scholar/{scholarId}")
     String deleteScholar(@PathVariable Long scholarId){
         if(!scholarRepository.existsById(scholarId)){
             throw  new ScholarNotFoundException(scholarId);
@@ -77,8 +56,15 @@ public class ScholarController {
         }
     }
 
+    @GetMapping("/scholar/count")
+    public long getCount(){
+        return scholarService.getCount();
+    }
+
     @Autowired
     private TransferDataService transferDataService;
+
+    @PostMapping("/scholar")
     public ResponseEntity<?> transferPendingApplication(){
         try{
             transferDataService.transferData();
@@ -88,5 +74,11 @@ public class ScholarController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error transferring data");
 
         }
+    }
+
+    @PostMapping("/singlepost/{pendingId}")
+    public ResponseEntity<?> transferSingleMember(@PathVariable Long pendingId) {
+        transferDataService.transferSingleRecord(pendingId);
+        return ResponseEntity.ok("Success");
     }
 }

@@ -15,6 +15,7 @@ public class Programs {
     private String programDescription;
     private String programDeadline;
     private String programEligibility;
+    private String programStatus;
     private String imageFilename;
 
     public Long getProgramId() {
@@ -35,6 +36,10 @@ public class Programs {
 
     public String getProgramEligibility() {
         return programEligibility;
+    }
+
+    public String getProgramStatus() {
+        return programStatus;
     }
 
     public String getImageFilename() {
@@ -59,6 +64,10 @@ public class Programs {
 
     public void setProgramEligibility(String programEligibility) {
         this.programEligibility = programEligibility;
+    }
+
+    public void setProgramStatus(String programStatus) {
+        this.programStatus = programStatus;
     }
 
     public void setImageFilename(String imageFilename) {

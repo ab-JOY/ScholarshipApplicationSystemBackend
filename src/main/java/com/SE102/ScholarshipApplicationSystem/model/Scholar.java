@@ -3,8 +3,15 @@ package com.SE102.ScholarshipApplicationSystem.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 
+@Data
 @Entity
 public class Scholar {
 
@@ -20,6 +27,7 @@ public class Scholar {
     private String GWA;
 
     private String course;
+
     private String yearLevel;
     private String contactNumber;
     private String emailAddress;
@@ -33,9 +41,6 @@ public class Scholar {
     private String numberOfSiblingsStudying;
     private String numberOfSiblingsWorking;
     private String annualHouseholdIncome;
-
-    private String userName;
-    private String passWord;
 
     public Long getScholarId() {
         return scholarId;
@@ -123,14 +128,6 @@ public class Scholar {
 
     public String getAnnualHouseholdIncome() {
         return annualHouseholdIncome;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassWord() {
-        return passWord;
     }
 
     public void setScholarId(Long scholarId) {
@@ -222,12 +219,5 @@ public class Scholar {
     }
 
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
 }
 

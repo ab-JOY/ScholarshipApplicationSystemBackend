@@ -4,8 +4,10 @@ package com.SE102.ScholarshipApplicationSystem.controller;
 import com.SE102.ScholarshipApplicationSystem.exception.ProgramNotFoundException;
 import com.SE102.ScholarshipApplicationSystem.model.Programs;
 import com.SE102.ScholarshipApplicationSystem.repository.ProgramsRepository;
+import com.SE102.ScholarshipApplicationSystem.service.TransferDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,9 +43,22 @@ public class ProgramsController {
                     programs.setProgramDescription(newProgram.getProgramDescription());
                     programs.setProgramEligibility(newProgram.getProgramEligibility());
                     programs.setProgramDeadline(newProgram.getProgramDeadline());
+                    programs.setProgramStatus(newProgram.getProgramStatus());
                     programs.setImageFilename(newProgram.getImageFilename());
 
                     return programsRepository.save(programs);
                 }).orElseThrow(()-> new ProgramNotFoundException(programId));
+    }
+
+    @GetMapping("/programs/count")
+    public Long getProgramsCount(){return programsRepository.count();}
+
+    @Autowired
+    private TransferDataService transferDataService;
+
+    @PostMapping("/listProgram/{programId_disbursed}")
+    public ResponseEntity<?> listProgram(@PathVariable Long programId_disbursed) {
+        transferDataService.listProgram(programId_disbursed);
+        return ResponseEntity.ok("Success");
     }
 }
